@@ -2,7 +2,10 @@ from importlib.metadata import files
 from turtle import title
 import discord
 from discord.ext import commands
+
+import youtube_dl #there is a problem with extract_info! youtube_dl is used for that.
 import yt_dlp
+
 import os, asyncio
 bot = commands.Bot(command_prefix="!")
 
@@ -34,7 +37,7 @@ async def play(ctx, *, searchword):
             url = searchword
  
     if searchword[0:4] != "http" and searchword[0:3] != "www":
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(f"ytsearch:{searchword}", download = False)["entries"][0]
             title = info["title"]
             url = info["webpage_url"]
